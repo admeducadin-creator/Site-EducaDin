@@ -1,0 +1,1241 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   TOKENS DE TEMA — dark (padrão)
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  --navy: #020817;
+  --green: #33c26f;
+  --green-dark: #249657;
+  --green-light: #143524;
+
+  --blue: #4d7edb;
+  --blue-light: #16233f;
+
+  --purple: #7b5ce6;
+  --purple-light: #241a45;
+
+  --violet: #9d4dff;
+  --violet-dark: #7b2fe0;
+  --violet-light: #2a1745;
+
+  --orange: #ff7a45;
+  --orange-light: #3d2016;
+
+  --white: #f8fafc;
+
+  --gray-50: #0f172a;
+  --gray-100: #1e293b;
+  --gray-300: #475569;
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --bg: #020817;
+
+  --radius: 16px;
+  --radius-sm: 8px;
+
+  /* Notícias */
+  --news-card-bg: #0f172a;
+  --news-card-border: #1e293b;
+  --news-skeleton-base: #1e293b;
+  --news-skeleton-shine: #263248;
+}
+
+/* ============================================================
+   TOKENS DE TEMA — light
+   ============================================================ */
+[data-theme="light"] {
+  --navy: #0f172a;
+  --green: #1f9954;
+  --green-dark: #177a43;
+  --green-light: #d6f0e2;
+
+  --blue: #214376;
+  --blue-light: #dce6f5;
+
+  --purple: #472990;
+  --purple-light: #ece8fb;
+
+  --violet: #7010dd;
+  --violet-dark: #5a0ab2;
+  --violet-light: #eddffb;
+
+  --orange: #f56128;
+  --orange-light: #fde8df;
+
+  --white: #ffffff;
+
+  --gray-50: #f4f6fb;
+  --gray-100: #dde3ef;
+  --gray-300: #a0aabf;
+
+  --text: #0f172a;
+  --text-muted: #4a5568;
+  --bg: #f4f6fb;
+
+  --radius: 16px;
+  --radius-sm: 8px;
+
+  /* Notícias */
+  --news-card-bg: #ffffff;
+  --news-card-border: #dde3ef;
+  --news-skeleton-base: #e8edf5;
+  --news-skeleton-shine: #f0f4fb;
+}
+
+/* ============================================================
+   TRANSIÇÃO SUAVE AO TROCAR TEMA
+   ============================================================ */
+body,
+header,
+.hero-card-mock,
+.tip-card,
+.sim-card,
+.cta-banner,
+.news-card,
+.stats-bar {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg), transparent 8%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-100);
+  padding: 0 5vw;
+}
+
+.nav-logo {
+  width: 100px;
+  padding-top: 40px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, var(--blue), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--text);
+}
+
+.nav-cta {
+  background: var(--violet) !important;
+  color: var(--white) !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  font-weight: 500;
+  transition: background-color 0.5s ease;
+}
+
+.nav-cta:hover {
+  background-color: var(--violet-dark) !important;
+}
+
+/* ============================================================
+   BOTÃO DE TEMA (toggle)
+   ============================================================ */
+.theme-toggle {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: 100px;
+  padding: 6px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  border-color: var(--gray-300);
+  color: var(--text);
+}
+
+/* Mostra ícone correto conforme o tema ativo */
+[data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+[data-theme="dark"] .theme-toggle__icon--sun  { display: inline; }
+[data-theme="light"] .theme-toggle__icon--sun  { display: none; }
+[data-theme="light"] .theme-toggle__icon--moon { display: inline; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: calc(100vh - 64px);
+  padding: 6rem 5vw 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, var(--green-light) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-light);
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero h1 {
+  font-family: "Nunito", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 1.25rem;
+  text-align: right;
+}
+
+.hero h1 .highlight {
+  color: var(--green);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 .highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--green-light);
+  z-index: -1;
+  border-radius: 2px;
+}
+
+.hero h1 .highlight-fun {
+  background: var(--violet);
+  color: var(--white);
+  border-radius: 8px;
+  padding: 0 10px;
+  display: inline-block;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 440px;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--violet);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 0.85rem 2rem;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--violet-dark);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+}
+
+/* ============================================================
+   HERO CARD MOCK
+   ============================================================ */
+.hero-image {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-card-mock {
+  background: var(--gray-50);
+  border-radius: 24px;
+  border: 1.5px solid var(--gray-100);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 40px color-mix(in srgb, var(--navy), transparent 40%);
+}
+
+.mock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.mock-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--green-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.mock-level {
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.mock-progress-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.mock-bar {
+  background: var(--gray-100);
+  border-radius: 100px;
+  height: 8px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.mock-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--violet));
+  border-radius: 100px;
+  width: 68%;
+  animation: fill-bar 2s ease-out forwards;
+}
+
+@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: 68%; }
+}
+
+.mock-missions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mock-mission {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--gray-100);
+}
+
+.mock-mission.done {
+  background: var(--green-light);
+}
+
+.mock-mission-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  background: var(--white);
+  color: var(--navy);
+}
+
+.mock-mission-text {
+  flex: 1;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.mock-mission-xp {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats-bar {
+  padding: 2rem 5vw;
+  border-top: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--bg);
+}
+
+.stats-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--gray-100);
+}
+
+/* ============================================================
+   COMO FUNCIONA
+   ============================================================ */
+.how-it-works {
+  padding: 5rem 5vw;
+}
+
+.step-container {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.step {
+  display: flex;
+  padding: 2rem;
+}
+
+.step-content {
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.step-title {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.3px;
+}
+
+.step-text {
+  font-size: 0.93rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.step-img {
+  object-fit: cover;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--gray-50);
+}
+
+/* ============================================================
+   CTA BANNER
+   ============================================================ */
+.cta-banner {
+  margin: 0 5vw 4rem;
+  background: var(--gray-50);
+  border-radius: 24px;
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 300px;
+  height: 300px;
+  background: var(--green-light);
+  opacity: 0.15;
+  border-radius: 50%;
+}
+
+.cta-banner::after {
+  content: "";
+  position: absolute;
+  right: 80px;
+  bottom: -100px;
+  width: 200px;
+  height: 200px;
+  background: var(--violet-light);
+  opacity: 0.15;
+  border-radius: 50%;
+}
+
+.cta-banner h3 {
+  font-family: "Nunito", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  max-width: 480px;
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-banner .btn-white {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 0.85rem 2rem;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.cta-banner .btn-white:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   CONCEITOS
+   ============================================================ */
+.concepts-section {
+  padding: 5rem 5vw;
+  background: var(--bg);
+}
+
+.concepts-section .section-title {
+  margin-bottom: 2rem;
+}
+
+.tips-grid {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.tips-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.tip-card {
+  min-width: 260px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: 16px;
+  padding: 1.5rem;
+  flex-shrink: 0;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.tip-card:hover {
+  border-color: var(--gray-300);
+  transform: translateY(-3px);
+}
+
+.tip-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.tip-card h3 {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tip-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   SIMULADORES
+   ============================================================ */
+.simulators-section {
+  padding: 5rem 5vw;
+}
+
+.simulators-section .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.simulators-section small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.sim-card {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.sim-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-3px);
+}
+
+.sim-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sim-card h3 {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.sim-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   SEÇÃO DE NOTÍCIAS
+   ============================================================ */
+.news-section {
+  padding: 5rem 5vw;
+  border-top: 1px solid var(--gray-100);
+}
+
+.news-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.news-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  max-width: 440px;
+}
+
+.news-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Filtros de categoria */
+.news-filter-tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: 100px;
+  padding: 4px;
+}
+
+.news-filter-btn {
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.news-filter-btn:hover {
+  color: var(--text);
+}
+
+.news-filter-btn.active {
+  background: var(--violet);
+  color: var(--white);
+}
+
+/* Botão atualizar */
+.news-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.news-refresh-btn:hover {
+  border-color: var(--gray-300);
+  color: var(--text);
+}
+
+.news-refresh-icon {
+  display: inline-block;
+  font-size: 1rem;
+  transition: transform 0.5s ease;
+}
+
+.news-refresh-btn.loading .news-refresh-icon {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Grid de cards */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Card individual */
+.news-card {
+  background: var(--news-card-bg);
+  border: 1.5px solid var(--news-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.news-card:hover {
+  border-color: var(--violet);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--violet), transparent 85%);
+}
+
+.news-card__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 100px;
+  padding: 3px 10px;
+  width: fit-content;
+}
+
+/* Variantes de cor por categoria */
+.news-card__category--investimentos {
+  background: var(--blue-light);
+  color: var(--blue);
+}
+
+.news-card__category--economia {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.news-card__category--acoes {
+  background: var(--violet-light);
+  color: var(--violet);
+}
+
+.news-card__category--outros {
+  background: var(--orange-light);
+  color: var(--orange);
+}
+
+.news-card__title {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.news-card__excerpt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+  /* Limita a 3 linhas */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.news-card__source {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.news-card__date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.news-card__read-more {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--violet);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s;
+}
+
+.news-card:hover .news-card__read-more {
+  gap: 8px;
+}
+
+/* ── SKELETON LOADING ── */
+.news-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.news-skeleton-card {
+  background: var(--news-card-bg);
+  border: 1.5px solid var(--news-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--news-skeleton-base) 25%,
+    var(--news-skeleton-shine) 50%,
+    var(--news-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 8px;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.skeleton--tag    { height: 22px; width: 90px; border-radius: 100px; }
+.skeleton--title  { height: 18px; width: 100%; }
+.skeleton--title-short { width: 70%; }
+.skeleton--text   { height: 14px; width: 100%; }
+.skeleton--meta   { height: 12px; width: 50%; }
+
+/* ── ESTADO DE ERRO ── */
+.news-error {
+  text-align: center;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.news-error__icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.news-error__title {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.news-error__desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ── RODAPÉ DA SEÇÃO ── */
+.news-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.news-disclaimer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.news-ver-mais {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--violet);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.news-ver-mais:hover {
+  opacity: 0.75;
+}
+
+/* ── LABELS E TÍTULOS DE SEÇÃO (compartilhados) ── */
+.section-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--violet);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: "Nunito", sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+/* ============================================================
+   FOOTER CTA
+   ============================================================ */
+.footer-cta {
+  text-align: center;
+  padding: 5rem 5vw 4rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.footer-cta h2 {
+  font-family: "Nunito", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
+}
+
+.footer-cta p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem 5vw;
+  border-top: 1px solid var(--gray-100);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   ICON COLOR MODIFIERS
+   ============================================================ */
+.tip-icon--green, .sim-icon--green { background: var(--green-light); color: var(--green); }
+.tip-icon--blue,  .sim-icon--blue  { background: var(--blue-light);  color: var(--blue);  }
+.tip-icon--purple,.sim-icon--purple{ background: var(--purple-light);color: var(--purple);}
+.tip-icon--violet,.sim-icon--violet{ background: var(--violet-light);color: var(--violet);}
+.tip-icon--orange,.sim-icon--orange{ background: var(--orange-light);color: var(--orange);}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+.btn-primary--inline {
+  display: inline-flex;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .hero-image {
+    order: -1;
+  }
+
+  .hero-card-mock {
+    max-width: 100%;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stats-inner {
+    gap: 1.5rem;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+
+  .news-header {
+    flex-direction: column;
+  }
+
+  .news-controls {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  nav ul li:not(:last-child):not(:nth-last-child(2)) {
+    display: none;
+  }
+
+  .cta-banner {
+    padding: 2.5rem;
+  }
+
+  .news-filter-tabs {
+    flex-wrap: wrap;
+    border-radius: var(--radius-sm);
+  }
+
+  .news-grid,
+  .news-skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+}

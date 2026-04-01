@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-br" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - EducaDin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <header>
+      <nav>
+        <div class="nav-brand">
+            <img src="assets/Logo.png" alt="Dindin logo" class="nav-logo">
+            <span class="nav-title">EducaDin</span>
+        </div>
+        
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#conteudos">Conteúdos</a></li>
+          <li><a href="#noticias">Notícias</a></li>
+          <li><a href="#contatos">Contatos</a></li>
+          <li><a href="#comeceagora" class="nav-cta">Comece agora</a></li>
+          <!-- Botão de tema -->
+          <li>
+            <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+              <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+              <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-content">
+        <h1>
+          Aprenda a cuidar do seu dinheiro de formas
+          <span class="highlight"> simples</span> e
+          <span class="highlight-fun"> divertida</span>
+        </h1>
+        <div class="hero-actions">
+          <a href="#comeceagora" class="btn-primary">✦ Entrar de graça</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-card-mock">
+          <div class="mock-header">
+            <div class="mock-avatar">🦊</div>
+            <div class="mock-level">Nível 5 · Poupador</div>
+          </div>
+          <div class="mock-progress-label">XP para o próximo nível — 680/1000</div>
+          <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+          <div class="mock-missions">
+            <div class="mock-mission done">
+              <div class="mock-mission-icon">✅</div>
+              <span class="mock-mission-text">Aprenda sobre juros compostos</span>
+              <span class="mock-mission-xp">+50 XP</span>
+            </div>
+            <div class="mock-mission">
+              <div class="mock-mission-icon">🎯</div>
+              <span class="mock-mission-text">Simule um investimento</span>
+              <span class="mock-mission-xp">+80 XP</span>
+            </div>
+            <div class="mock-mission">
+              <div class="mock-mission-icon">📊</div>
+              <span class="mock-mission-text">Monte seu orçamento mensal</span>
+              <span class="mock-mission-xp">+60 XP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Jovens aprendendo</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">5K</div>
+          <div class="stat-label">Módulos completados</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">Aprenda</div>
+          <div class="stat-label">se divertindo e jogando</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Gratuito e efetivo</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">R$537.648+</div>
+          <div class="stat-label">Economizados pela comunidade</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">Feito para</div>
+          <div class="stat-label">você começar do zero</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">Poupar, Investir</div>
+          <div class="stat-label">Esperar, Conquistar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMO FUNCIONA -->
+    <section class="how-it-works">
+      <div class="step-container step">
+        <div class="step-content">
+          <h2 class="step-title">01. Aprenda</h2>
+          <p class="step-text">Conteúdo interativo sobre finanças pessoais, organização, investimentos e muito mais — do básico ao avançado.</p>
+          <div class="tags">
+            <span class="tag">Módulos</span>
+            <span class="tag">Vídeos</span>
+            <span class="tag">Quiz</span>
+          </div>
+        </div>
+        <div class="step-img">
+          <img src="https://picsum.photos/id/400/400/200" alt="Aprendizado" />
+        </div>
+      </div>
+
+      <div class="step-container step">
+        <div class="step-img">
+          <img src="https://picsum.photos/id/400/400/200" alt="Aprendizado" />
+        </div>
+        <div class="step-content">
+          <h2 class="step-title">02. Pratique</h2>
+          <p class="step-text">Use simuladores reais para calcular gastos, simular dívidas e planejar seus sonhos financeiros com o DinDin.</p>
+          <div class="tags">
+            <span class="tag">Simuladores</span>
+            <span class="tag">Exercícios</span>
+            <span class="tag">Desafios</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-container step">
+        <div class="step-content">
+          <h2 class="step-title">03. Evolua</h2>
+          <p class="step-text">Suba de nível, ganhe conquistas, complete missões diárias e torne-se um Mestre do Dinheiro!</p>
+          <div class="tags">
+            <span class="tag">XP</span>
+            <span class="tag">Conquistas</span>
+            <span class="tag">Ranking</span>
+          </div>
+        </div>
+        <div class="step-img">
+          <img src="https://picsum.photos/id/400/400/200" alt="Aprendizado" />
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+      <h3>Inicie já sua trilha de aprendizado e mude a sua relação com o dinheiro!</h3>
+      <a href="#comeceagora" class="btn-white">Começar agora →</a>
+    </div>
+
+    <!-- CONCEITOS -->
+    <section id="conteudos" class="concepts-section">
+      <span class="section-label">Conteúdos</span>
+      <h2 class="section-title">Aprenda conceitos que fazem a diferença</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon tip-icon--green">💰</div>
+          <h3>Orçamento pessoal</h3>
+          <p>Controle suas entradas e saídas com métodos práticos como a regra 50-30-20.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon tip-icon--blue">📈</div>
+          <h3>Juros compostos</h3>
+          <p>Entenda como o tempo e os juros podem ser seus melhores aliados — ou seus piores inimigos.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon tip-icon--purple">🛡️</div>
+          <h3>Reserva de emergência</h3>
+          <p>Aprenda a se proteger de imprevistos sem comprometer seus objetivos de longo prazo.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon tip-icon--violet">🏦</div>
+          <h3>Como investir</h3>
+          <p>Tesouro, CDB, ações e fundos: descubra qual caminho é certo para o seu perfil.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon tip-icon--orange">💳</div>
+          <h3>Crédito e dívidas</h3>
+          <p>Saiba usar o cartão com inteligência e entenda quando o crédito ajuda ou atrapalha.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULADORES -->
+    <section class="simulators-section">
+      <span class="section-label">Ferramentas</span>
+      <h2 class="section-title">Pratique com simuladores reais</h2>
+      <small>Simuladores 100% funcionais para você tomar decisões financeiras mais inteligentes.</small>
+      <div class="sim-grid">
+        <a href="#" class="sim-card">
+          <div class="sim-icon sim-icon--green">📊</div>
+          <h3>Simulador de orçamento</h3>
+          <p>Monte e visualize seu orçamento mensal de forma simples e visual.</p>
+        </a>
+        <a href="#" class="sim-card">
+          <div class="sim-icon sim-icon--blue">📈</div>
+          <h3>Calculadora de juros</h3>
+          <p>Veja quanto rende (ou quanto custa) no tempo com juros compostos.</p>
+        </a>
+        <a href="#" class="sim-card">
+          <div class="sim-icon sim-icon--violet">🎯</div>
+          <h3>Planejador de metas</h3>
+          <p>Defina um objetivo e descubra quanto guardar por mês para chegar lá.</p>
+        </a>
+        <a href="#" class="sim-card">
+          <div class="sim-icon sim-icon--orange">⚡</div>
+          <h3>Simulador de dívidas</h3>
+          <p>Entenda o impacto de parcelamentos e como quitar com inteligência.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== NOTÍCIAS DO MERCADO ==================== -->
+    <section id="noticias" class="news-section">
+      <div class="news-header">
+        <div>
+          <span class="section-label">Mercado financeiro</span>
+          <h2 class="section-title">Fique por dentro das notícias</h2>
+          <p class="news-subtitle">Acompanhe o que está acontecendo no mercado e entenda como isso afeta o seu bolso.</p>
+        </div>
+        <div class="news-controls">
+          <div class="news-filter-tabs" id="newsFilterTabs">
+            <button class="news-filter-btn active" data-filter="todos">Todos</button>
+            <button class="news-filter-btn" data-filter="investimentos">Investimentos</button>
+            <button class="news-filter-btn" data-filter="economia">Economia</button>
+            <button class="news-filter-btn" data-filter="acoes">Ações</button>
+          </div>
+          <button class="news-refresh-btn" id="newsRefreshBtn" aria-label="Atualizar notícias">
+            <span class="news-refresh-icon">↻</span>
+            Atualizar
+          </button>
+        </div>
+      </div>
+
+      <!-- Estado de carregamento -->
+      <div class="news-loading" id="newsLoading" aria-live="polite">
+        <div class="news-skeleton-grid">
+          <div class="news-skeleton-card">
+            <div class="skeleton skeleton--tag"></div>
+            <div class="skeleton skeleton--title"></div>
+            <div class="skeleton skeleton--title skeleton--title-short"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--meta"></div>
+          </div>
+          <div class="news-skeleton-card">
+            <div class="skeleton skeleton--tag"></div>
+            <div class="skeleton skeleton--title"></div>
+            <div class="skeleton skeleton--title skeleton--title-short"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--meta"></div>
+          </div>
+          <div class="news-skeleton-card">
+            <div class="skeleton skeleton--tag"></div>
+            <div class="skeleton skeleton--title"></div>
+            <div class="skeleton skeleton--title skeleton--title-short"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--text"></div>
+            <div class="skeleton skeleton--meta"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado de erro -->
+      <div class="news-error" id="newsError" hidden>
+        <div class="news-error__icon">📡</div>
+        <p class="news-error__title">Não foi possível carregar as notícias</p>
+        <p class="news-error__desc">Verifique sua conexão ou tente novamente em instantes.</p>
+        <button class="btn-primary" id="newsRetryBtn">Tentar novamente</button>
+      </div>
+
+      <!-- Grid de notícias -->
+      <div class="news-grid" id="newsGrid" hidden>
+        <!-- Preenchido dinamicamente pelo main.js -->
+      </div>
+
+      <div class="news-footer">
+        <p class="news-disclaimer">
+          <span>📰</span>
+          Notícias fornecidas via API de mercado financeiro · Conteúdo de terceiros
+        </p>
+        <a href="#" class="news-ver-mais">Ver todas as notícias →</a>
+      </div>
+    </section>
+    <!-- ==================== FIM NOTÍCIAS ==================== -->
+
+    <!-- FOOTER CTA -->
+    <section id="comeceagora" class="footer-cta">
+      <h2>Pronto para começar?</h2>
+      <p>Junte-se a mais de 10.000 jovens que já estão no controle do seu dinheiro.</p>
+      <a href="#" class="btn-primary btn-primary--inline">✦ Criar conta grátis</a>
+    </section>
+
+    <footer id="contatos">
+      <p>© 2025 Dindin · Feito com 💚 para jovens que querem mais</p>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>
