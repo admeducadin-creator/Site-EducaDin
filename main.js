@@ -96,12 +96,7 @@ async function buscarNoticias() {
 
   // TODO: Substituir pelo fetch real da API de notícias financeiras.
   // Exemplo de integração futura:
-  //
-  //   const resposta = await fetch("https://api.exemplo.com/noticias?categoria=financas", {
-  //     headers: { Authorization: `Bearer ${SUA_API_KEY}` },
-  //   });
-  //   if (!resposta.ok) throw new Error("Falha ao buscar notícias");
-  //   return resposta.json();
+  
 
   /** @type {Noticia[]} */
   const noticiasMock = [
