@@ -66,7 +66,7 @@ function registrarToggleTema() {
  * @property {string} titulo      - Título da notícia.
  * @property {string} resumo      - Breve descrição ou lead.
  * @property {string} fonte       - Nome do veículo de comunicação.
- * @property {string} data        - Data de publicação formatada (ex: "31 mar 2025").
+ * @property {string} data        - Data de publicação formatada (ex: "31 mar. de 2025").
  * @property {string} categoria   - Categoria: "investimentos" | "economia" | "acoes" | "outros".
  * @property {string} url         - URL da notícia completa.
  */
@@ -82,24 +82,87 @@ const CATEGORIAS = {
   outros:        { label: "Mercado",       emoji: "💡" },
 };
 
-/**
- * Dados ilustrativos de notícias, utilizados enquanto a integração
- * real com a API de notícias não está disponível.
- * Substitua esta função por uma chamada à API real quando disponível.
- *
- * @returns {Promise<Noticia[]>} Promise que resolve com a lista de notícias.
- */
-async function buscarNoticias() {
-  // Simula latência de rede (entre 600ms e 1.2s)
-  const latenciaSimulada = 600 + Math.random() * 600;
-  await new Promise((resolve) => setTimeout(resolve, latenciaSimulada));
+/* ============================================================
+   INTEGRAÇÃO: NEWSDATA.IO
+   Como configurar:
+     1. Crie uma conta gratuita em https://newsdata.io
+     2. Copie sua API Key no painel (Account → API Key)
+     3. Substitua o valor de NEWSDATA_API_KEY abaixo pela sua chave
+   Plano gratuito: 200 créditos/dia, sem necessidade de cartão.
+   Documentação:   https://newsdata.io/documentation
+   ============================================================ */
 
-  // TODO: Substituir pelo fetch real da API de notícias financeiras.
-  // Exemplo de integração futura:
-  
+/**
+ * Sua chave de API da NewsData.io.
+ * @constant {string}
+ */
+const NEWSDATA_API_KEY = "pub_35297de19e22447d8d07b7831e1c165e";
+
+/** @constant {string} Endpoint da API de últimas notícias */
+const NEWSDATA_ENDPOINT = "https://newsdata.io/api/1/latest";
+
+/**
+ * Mapeamento das categorias retornadas pela NewsData.io
+ * para as categorias internas do EducaDin.
+ * @type {Object<string, string>}
+ */
+const MAPA_CATEGORIAS_API = {
+  business:  "investimentos",
+  finance:   "investimentos",
+  economy:   "economia",
+  politics:  "economia",
+  top:       "outros",
+};
+
+/**
+ * Converte o array de categorias da API para a categoria interna do EducaDin.
+ *
+ * @param {string[]|null} categoriasApi - Categorias retornadas pela NewsData.io.
+ * @returns {string} Categoria interna correspondente.
+ */
+function mapearCategoria(categoriasApi) {
+  if (!Array.isArray(categoriasApi) || categoriasApi.length === 0) return "outros";
+  for (const cat of categoriasApi) {
+    const mapeada = MAPA_CATEGORIAS_API[cat.toLowerCase()];
+    if (mapeada) return mapeada;
+  }
+  return "outros";
+}
+
+/**
+ * Formata uma data ISO retornada pela API para exibição em pt-BR.
+ * Também aceita strings já formatadas (usadas nos dados mock).
+ *
+ * @param {string} dataStr - Data ISO (ex: "2025-03-31 14:22:00") ou texto livre.
+ * @returns {string} Data formatada (ex: "31 de mar. de 2025").
+ */
+function formatarData(dataStr) {
+  if (!dataStr) return "Data não disponível";
+  // Se não tiver formato ISO, retorna como está (strings dos mocks)
+  if (!/\d{4}-\d{2}-\d{2}/.test(dataStr)) return dataStr;
+  try {
+    return new Date(dataStr).toLocaleDateString("pt-BR", {
+      day:   "2-digit",
+      month: "short",
+      year:  "numeric",
+    });
+  } catch {
+    return dataStr;
+  }
+}
+
+/**
+ * Notícias de fallback usadas no modo de demonstração
+ * (sem API Key configurada) ou quando a API não retorna resultados.
+ *
+ * @returns {Promise<Noticia[]>}
+ */
+async function buscarNoticiasMock() {
+  // Simula latência de rede
+  await new Promise((resolve) => setTimeout(resolve, 600 + Math.random() * 600));
 
   /** @type {Noticia[]} */
-  const noticiasMock = [
+  return [
     {
       titulo: "Copom mantém Selic em 10,5% ao ano pela segunda reunião consecutiva",
       resumo: "O Comitê de Política Monetária do Banco Central decidiu manter a taxa básica de juros estável, sinalizando cautela diante da inflação ainda acima do centro da meta.",
@@ -135,7 +198,7 @@ async function buscarNoticias() {
     {
       titulo: "CDB de bancos médios ainda oferece retornos superiores a 115% do CDI",
       resumo: "Levantamento aponta que instituições financeiras de médio porte continuam sendo competitivas no segmento de renda fixa, com liquidez diária em alguns produtos.",
-      fonte: "Infomoney",
+      fonte: "InfoMoney",
       data: "27 mar 2025",
       categoria: "investimentos",
       url: "#",
@@ -149,8 +212,75 @@ async function buscarNoticias() {
       url: "#",
     },
   ];
+}
 
-  return noticiasMock;
+/**
+ * Busca notícias financeiras reais via NewsData.io.
+ *
+ * Parâmetros utilizados na requisição:
+ *   - language=pt    → Apenas artigos em português
+ *   - country=br     → Prioriza fontes brasileiras
+ *   - category=business,economy → Mercado financeiro e economia
+ *   - size=10        → Máximo de resultados por chamada (limite do plano gratuito)
+ *
+ * Comportamento de fallback:
+ *   - Se NEWSDATA_API_KEY não estiver configurada → usa dados mock (modo demo)
+ *   - Se a API retornar 0 resultados              → usa dados mock
+ *   - Se a requisição falhar (rede/HTTP)           → propaga o erro para `carregarNoticias`
+ *
+ * @returns {Promise<Noticia[]>}
+ */
+async function buscarNoticias() {
+  // Chave não configurada → modo demonstração com dados mock
+  if (!NEWSDATA_API_KEY || NEWSDATA_API_KEY === "SUA_API_KEY_AQUI") {
+    console.warn("[EducaDin] NEWSDATA_API_KEY não configurada. Exibindo dados de exemplo.");
+    return buscarNoticiasMock();
+  }
+
+  const params = new URLSearchParams({
+    apikey:   NEWSDATA_API_KEY,
+    language: "pt",
+    country:  "br",
+    category: "business,economy",
+    size:     "10",
+  });
+
+  const resposta = await fetch(`${NEWSDATA_ENDPOINT}?${params}`);
+
+  if (!resposta.ok) {
+    // Tenta extrair mensagem de erro da API antes de lançar
+    const corpo = await resposta.json().catch(() => ({}));
+    const mensagem = corpo?.results?.message ?? `HTTP ${resposta.status}`;
+    throw new Error(`[NewsData.io] ${mensagem}`);
+  }
+
+  const dados = await resposta.json();
+
+  if (dados.status !== "success" || !Array.isArray(dados.results)) {
+    throw new Error("[NewsData.io] Formato de resposta inesperado.");
+  }
+
+  /** @type {Noticia[]} */
+  const noticias = dados.results
+    .filter((item) => item.title && item.link) // descarta itens sem título ou URL
+    .map((item) => ({
+      titulo:    item.title,
+      resumo:    item.description
+                   ?? item.content?.slice(0, 200)
+                   ?? "Clique para ler a notícia completa.",
+      fonte:     item.source_name ?? item.source_id ?? "Fonte desconhecida",
+      data:      formatarData(item.pubDate) || "Data não disponível",
+      categoria: mapearCategoria(item.category),
+      url:       item.link,
+    }));
+
+  // API retornou lista vazia → fallback silencioso para dados mock
+  if (noticias.length === 0) {
+    console.warn("[EducaDin] API retornou 0 notícias. Exibindo dados de exemplo.");
+    return buscarNoticiasMock();
+  }
+
+  return noticias;
 }
 
 /**
@@ -163,19 +293,6 @@ async function buscarNoticias() {
 function filtrarNoticias(noticias, filtro) {
   if (filtro === "todos") return noticias;
   return noticias.filter((n) => n.categoria === filtro);
-}
-
-/**
- * Formata uma string de data para exibição amigável.
- * Caso a data já esteja formatada (texto), retorna como está.
- *
- * @param {string} dataStr - Data em texto ou formato ISO.
- * @returns {string} Data formatada.
- */
-function formatarData(dataStr) {
-  // Como estamos usando strings pré-formatadas nos mocks, retornamos direto.
-  // Numa integração real, use: new Date(dataStr).toLocaleDateString("pt-BR", {...})
-  return dataStr;
 }
 
 /**
@@ -203,7 +320,7 @@ function criarCardNoticia(noticia) {
     <p class="news-card__excerpt">${noticia.resumo}</p>
     <div class="news-card__meta">
       <span class="news-card__source">${noticia.fonte}</span>
-      <span class="news-card__date">${formatarData(noticia.data)}</span>
+      <span class="news-card__date">${noticia.data}</span>
     </div>
     <span class="news-card__read-more">Ler mais <span>→</span></span>
   `;
