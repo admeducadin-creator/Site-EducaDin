@@ -145,14 +145,7 @@ async function buscarNoticias() {
       categoria: "investimentos",
       url: "#",
     },
-    {
-      titulo: "Fundos imobiliários distribuem R$ 1,2 bilhão em dividendos no mês",
-      resumo: "O setor de FIIs manteve o ritmo de distribuição de rendimentos, com os fundos de papel se destacando em meio ao ambiente de juros elevados.",
-      fonte: "Suno Research",
-      data: "26 mar 2025",
-      categoria: "acoes",
-      url: "#",
-    },
+    
   ];
 
   return noticiasMock;

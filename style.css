@@ -23,6 +23,7 @@
   --purple-light: #241a45;
 
   --violet: #9d4dff;
+  --violet-mid: #9358e0;
   --violet-dark: #7b2fe0;
   --violet-light: #2a1745;
 
@@ -251,6 +252,11 @@ nav a:hover {
   z-index: 0;
 }
 
+[data-theme="light"] .hero::before {
+  background: radial-gradient(circle, var(--violet) 0%, transparent 60%);
+}
+
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -333,6 +339,13 @@ nav a:hover {
   justify-content: end;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.hero-image-cta {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
+  object-fit: cover;
 }
 
 /* ============================================================
@@ -588,6 +601,11 @@ nav a:hover {
   font-weight: 500;
 }
 
+[data-theme="light"] .tag {
+  background: var(--violet-light);
+  color: var(--violet);
+}
+
 .step-img {
   object-fit: cover;
   border-radius: 12px;
@@ -610,6 +628,14 @@ nav a:hover {
   flex-wrap: wrap;
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="light"] .cta-banner {
+  background: var(--violet-mid);
+}
+
+[data-theme="light"] .cta-banner h3{
+ color: var(--white);
 }
 
 .cta-banner::before {
@@ -676,6 +702,8 @@ nav a:hover {
 .concepts-section {
   padding: 5rem 5vw;
   background: var(--bg);
+  max-width: 100%;
+  width: 100vw
 }
 
 .concepts-section .section-title {
@@ -695,7 +723,8 @@ nav a:hover {
 }
 
 .tip-card {
-  min-width: 260px;
+  min-width: 200px;
+  max-width:
   background: var(--gray-50);
   border: 1.5px solid var(--gray-100);
   border-radius: 16px;
@@ -731,6 +760,26 @@ nav a:hover {
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.6;
+  padding-bottom: 0.5rem;
+}
+
+.tag-visite-video{
+  background: var(--blue-light);
+  color: var(--blue);
+  border-radius: 100px;
+  padding: 4px 12px;
+  margin-top:2rem;
+  font-size: 0.8rem;
+  justify-content: center;
+}
+
+.tag-visite-video:hover{
+  background: var(--blue);
+  color: var(--white);
+}
+
+a{
+  text-decoration: none;
 }
 
 /* ============================================================
