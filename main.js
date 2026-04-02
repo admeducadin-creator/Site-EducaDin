@@ -25,7 +25,9 @@ const STORAGE_KEY_TEMA = "educadin-tema";
  */
 function inicializarTema() {
   const temaSalvo = localStorage.getItem(STORAGE_KEY_TEMA);
-  const prefereEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const prefereEscuro = window.matchMedia(
+    "(prefers-color-scheme: dark)",
+  ).matches;
 
   const temaInicial = temaSalvo ?? (prefereEscuro ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", temaInicial);
@@ -77,26 +79,16 @@ function registrarToggleTema() {
  */
 const CATEGORIAS = {
   investimentos: { label: "Investimentos", emoji: "📈" },
-  economia:      { label: "Economia",      emoji: "🏛️" },
-  acoes:         { label: "Ações",         emoji: "📊" },
-  outros:        { label: "Mercado",       emoji: "💡" },
+  economia: { label: "Economia", emoji: "🏛️" },
+  acoes: { label: "Ações", emoji: "📊" },
+  outros: { label: "Mercado", emoji: "💡" },
 };
-
-/* ============================================================
-   INTEGRAÇÃO: NEWSDATA.IO
-   Como configurar:
-     1. Crie uma conta gratuita em https://newsdata.io
-     2. Copie sua API Key no painel (Account → API Key)
-     3. Substitua o valor de NEWSDATA_API_KEY abaixo pela sua chave
-   Plano gratuito: 200 créditos/dia, sem necessidade de cartão.
-   Documentação:   https://newsdata.io/documentation
-   ============================================================ */
 
 /**
  * Sua chave de API da NewsData.io.
  * @constant {string}
  */
-const NEWSDATA_API_KEY = "pub_35297de19e22447d8d07b7831e1c165e";
+const NEWSDATA_API_KEY = "pub_a4bad35027ad49279ebfa9d31d238a61";
 
 /** @constant {string} Endpoint da API de últimas notícias */
 const NEWSDATA_ENDPOINT = "https://newsdata.io/api/1/latest";
@@ -107,11 +99,23 @@ const NEWSDATA_ENDPOINT = "https://newsdata.io/api/1/latest";
  * @type {Object<string, string>}
  */
 const MAPA_CATEGORIAS_API = {
-  business:  "investimentos",
-  finance:   "investimentos",
-  economy:   "economia",
-  politics:  "economia",
-  top:       "outros",
+  // Investimentos
+  business: "investimentos",
+  finance: "investimentos", // 
+  technology: "investimentos", // 
+
+  // Economia
+  politics: "economia",
+  world: "economia",
+  environment: "economia",
+
+  // Outros / Mercado
+  top: "outros",
+  tourism: "outros",
+  education: "outros",
+  lifestyle: "outros",
+  science: "outros",
+  other: "outros",
 };
 
 /**
@@ -121,14 +125,21 @@ const MAPA_CATEGORIAS_API = {
  * @returns {string} Categoria interna correspondente.
  */
 function mapearCategoria(categoriasApi) {
-  if (!Array.isArray(categoriasApi) || categoriasApi.length === 0) return "outros";
-  for (const cat of categoriasApi) {
-    const mapeada = MAPA_CATEGORIAS_API[cat.toLowerCase()];
-    if (mapeada) return mapeada;
+  // Garante que é um array e não está vazio
+  if (!Array.isArray(categoriasApi) || categoriasApi.length === 0) {
+    return "outros";
   }
+
+  // Percorre as categorias vindas da API (ex: ["business", "top"])
+  for (const cat of categoriasApi) {
+    const categoriaNormalizada = cat.toLowerCase();
+    if (MAPA_CATEGORIAS_API[categoriaNormalizada]) {
+      return MAPA_CATEGORIAS_API[categoriaNormalizada];
+    }
+  }
+
   return "outros";
 }
-
 /**
  * Formata uma data ISO retornada pela API para exibição em pt-BR.
  * Também aceita strings já formatadas (usadas nos dados mock).
@@ -142,9 +153,9 @@ function formatarData(dataStr) {
   if (!/\d{4}-\d{2}-\d{2}/.test(dataStr)) return dataStr;
   try {
     return new Date(dataStr).toLocaleDateString("pt-BR", {
-      day:   "2-digit",
+      day: "2-digit",
       month: "short",
-      year:  "numeric",
+      year: "numeric",
     });
   } catch {
     return dataStr;
@@ -159,59 +170,12 @@ function formatarData(dataStr) {
  */
 async function buscarNoticiasMock() {
   // Simula latência de rede
-  await new Promise((resolve) => setTimeout(resolve, 600 + Math.random() * 600));
+  await new Promise((resolve) =>
+    setTimeout(resolve, 600 + Math.random() * 600),
+  );
 
   /** @type {Noticia[]} */
-  return [
-    {
-      titulo: "Copom mantém Selic em 10,5% ao ano pela segunda reunião consecutiva",
-      resumo: "O Comitê de Política Monetária do Banco Central decidiu manter a taxa básica de juros estável, sinalizando cautela diante da inflação ainda acima do centro da meta.",
-      fonte: "Valor Econômico",
-      data: "31 mar 2025",
-      categoria: "economia",
-      url: "#",
-    },
-    {
-      titulo: "Tesouro Direto: títulos IPCA+ voltam a atrair investidores com taxas acima de 6%",
-      resumo: "Com a inflação mostrando sinais de desaceleração, os títulos indexados ao IPCA voltaram ao radar dos investidores de longo prazo em busca de proteção real.",
-      fonte: "InfoMoney",
-      data: "30 mar 2025",
-      categoria: "investimentos",
-      url: "#",
-    },
-    {
-      titulo: "Ibovespa supera 130.000 pontos impulsionado por commodities e bancos",
-      resumo: "O principal índice da bolsa brasileira encerrou a semana em alta, puxado pela valorização das ações de mineradoras e grandes bancos nacionais.",
-      fonte: "B3 News",
-      data: "29 mar 2025",
-      categoria: "acoes",
-      url: "#",
-    },
-    {
-      titulo: "Dólar recua para R$ 5,10 com melhora do cenário externo",
-      resumo: "A moeda americana fechou em queda frente ao real após dados positivos da economia dos EUA aliviarem as preocupações com novos aumentos dos juros americanos.",
-      fonte: "Reuters Brasil",
-      data: "28 mar 2025",
-      categoria: "economia",
-      url: "#",
-    },
-    {
-      titulo: "CDB de bancos médios ainda oferece retornos superiores a 115% do CDI",
-      resumo: "Levantamento aponta que instituições financeiras de médio porte continuam sendo competitivas no segmento de renda fixa, com liquidez diária em alguns produtos.",
-      fonte: "InfoMoney",
-      data: "27 mar 2025",
-      categoria: "investimentos",
-      url: "#",
-    },
-    {
-      titulo: "Fundos imobiliários distribuem R$ 1,2 bilhão em dividendos no mês",
-      resumo: "O setor de FIIs manteve o ritmo de distribuição de rendimentos, com os fundos de papel se destacando em meio ao ambiente de juros elevados.",
-      fonte: "Suno Research",
-      data: "26 mar 2025",
-      categoria: "acoes",
-      url: "#",
-    },
-  ];
+  return [];
 }
 
 /**
@@ -230,59 +194,50 @@ async function buscarNoticiasMock() {
  *
  * @returns {Promise<Noticia[]>}
  */
+
+// Código do gemini - NÃO CONFIAR
 async function buscarNoticias() {
-  // Chave não configurada → modo demonstração com dados mock
-  if (!NEWSDATA_API_KEY || NEWSDATA_API_KEY === "SUA_API_KEY_AQUI") {
-    console.warn("[EducaDin] NEWSDATA_API_KEY não configurada. Exibindo dados de exemplo.");
+  // A URL abaixo já contém todos os parâmetros necessários
+  const urlCompleta =
+    "https://newsdata.io/api/1/latest?apikey=pub_a4bad35027ad49279ebfa9d31d238a61&q=mercado%20financeiro&language=pt&country=br";
+
+  try {
+    const resposta = await fetch(urlCompleta);
+
+
+    if (!resposta.ok) {
+      console.error(`Erro HTTP: ${resposta.status}`);
+      return buscarNoticiasMock();
+    }
+
+    const dados = await resposta.json();
+
+    if (dados.status !== "success") {
+      console.error("API retornou erro no JSON:", dados.results?.message);
+      return buscarNoticiasMock();
+    }
+
+    const noticias = dados.results
+      .filter((item) => item.title && item.link)
+      .map((item) => ({
+        titulo: item.title,
+        resumo: item.description ?? "Clique para ler a notícia completa.",
+        fonte: item.source_id ?? "Fonte",
+        data: formatarData(item.pubDate), // Use sua função de formatar data aqui
+        url: item.link,
+        // ADICIONE ESTA LINHA ABAIXO:
+        categoria: mapearCategoria(item.category),
+      }));
+
+    return noticias.length > 0 ? noticias : buscarNoticiasMock();
+  } catch (erro) {
+    console.warn(
+      "[EducaDin] Erro de conexão ou CORS. Usando fallback Mock.",
+      erro,
+    );
     return buscarNoticiasMock();
   }
-
-  const params = new URLSearchParams({
-    apikey:   NEWSDATA_API_KEY,
-    language: "pt",
-    country:  "br",
-    category: "business,economy",
-    size:     "10",
-  });
-
-  const resposta = await fetch(`${NEWSDATA_ENDPOINT}?${params}`);
-
-  if (!resposta.ok) {
-    // Tenta extrair mensagem de erro da API antes de lançar
-    const corpo = await resposta.json().catch(() => ({}));
-    const mensagem = corpo?.results?.message ?? `HTTP ${resposta.status}`;
-    throw new Error(`[NewsData.io] ${mensagem}`);
-  }
-
-  const dados = await resposta.json();
-
-  if (dados.status !== "success" || !Array.isArray(dados.results)) {
-    throw new Error("[NewsData.io] Formato de resposta inesperado.");
-  }
-
-  /** @type {Noticia[]} */
-  const noticias = dados.results
-    .filter((item) => item.title && item.link) // descarta itens sem título ou URL
-    .map((item) => ({
-      titulo:    item.title,
-      resumo:    item.description
-                   ?? item.content?.slice(0, 200)
-                   ?? "Clique para ler a notícia completa.",
-      fonte:     item.source_name ?? item.source_id ?? "Fonte desconhecida",
-      data:      formatarData(item.pubDate) || "Data não disponível",
-      categoria: mapearCategoria(item.category),
-      url:       item.link,
-    }));
-
-  // API retornou lista vazia → fallback silencioso para dados mock
-  if (noticias.length === 0) {
-    console.warn("[EducaDin] API retornou 0 notícias. Exibindo dados de exemplo.");
-    return buscarNoticiasMock();
-  }
-
-  return noticias;
 }
-
 /**
  * Filtra a lista de notícias de acordo com a categoria selecionada.
  *

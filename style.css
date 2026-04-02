@@ -1064,7 +1064,7 @@ nav a:hover {
 /* ── ESTADO DE ERRO ── */
 .news-error {
   text-align: center;
-  padding: 4rem 2rem;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
