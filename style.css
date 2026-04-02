@@ -67,6 +67,7 @@
   --violet: #7010dd;
   --violet-dark: #5a0ab2;
   --violet-light: #eddffb;
+  --violet-mid: #8f54ca;
 
   --orange: #f56128;
   --orange-light: #fde8df;
@@ -249,6 +250,10 @@ nav a:hover {
   background: radial-gradient(circle, var(--green-light) 0%, transparent 70%);
   border-radius: 50%;
   z-index: 0;
+}
+
+[data-theme="light"] .hero::before {
+   background: radial-gradient(circle, var(--violet-mid) 0%, transparent 70%);
 }
 
 .hero-content {
@@ -908,7 +913,7 @@ nav a:hover {
 /* Grid de cards */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
   gap: 1.25rem;
 }
 
@@ -1195,10 +1200,6 @@ footer {
   .hero {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-  }
-
-  .hero-image {
-    order: -1;
   }
 
   .hero-card-mock {
