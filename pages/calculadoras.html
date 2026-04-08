@@ -35,11 +35,11 @@
 
       <!-- Breadcrumb -->
       <div class="breadcrumb">
-        <a href="index.html#simuladores" class="breadcrumb-link">
+        <a href="../index.html" class="breadcrumb-link">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Voltar para simuladores
+          Voltar para o início
         </a>
       </div>
 
@@ -53,158 +53,288 @@
         </div>
         <div>
           <span class="page-label">Ferramentas</span>
-          <h1 class="page-title">Quanto vale em horas?</h1>
-          <p class="page-sub">Descubra o preço real de qualquer compra em tempo de trabalho.</p>
+          <h1 class="page-title">Calculadoras</h1>
+          <p class="page-sub">Ferramentas para entender melhor o seu dinheiro.</p>
         </div>
       </div>
 
-      <div class="calc-layout">
+      <!-- ── MENU DE CALCULADORAS ── -->
+      <div class="calc-menu">
+        <p class="calc-menu-label">Escolha uma calculadora</p>
 
-        <!-- Coluna principal -->
-        <div class="calc-col-main">
+        <div class="calc-menu-grid">
 
-          <!-- Card: Sua renda -->
-          <div class="calc-card">
-            <div class="card-section-title">
-              <span>Sua renda</span>
+          <!-- Horas trabalhadas — ATIVA -->
+          <button
+            class="calc-menu-btn active"
+            data-calc="horas"
+            aria-label="Calculadora: Quanto vale em horas?"
+          >
+            <div class="cmb-tooltip">
+              Descubra quantas horas você precisa trabalhar para pagar qualquer compra.
             </div>
-
-            <div class="period-tabs" id="periodTabs" role="tablist">
-              <button class="period-tab active" data-period="mensal" role="tab">Mensal</button>
-              <button class="period-tab" data-period="quinzenal" role="tab">Quinzenal</button>
-              <button class="period-tab" data-period="semanal" role="tab">Semanal</button>
-            </div>
-
-            <div class="fields-grid">
-              <div class="field-group field-group--full">
-                <label class="field-label" id="rendaLabel" for="renda">Renda mensal</label>
-                <div class="input-row">
-                  <span class="input-prefix">R$</span>
-                  <input class="calc-input" type="number" id="renda" name="renda"
-                    placeholder="0,00" min="0" step="0.01" inputmode="decimal"
-                    aria-label="Renda">
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="horasDia">Horas por dia</label>
-                <div class="input-row">
-                  <span class="input-prefix">h</span>
-                  <input class="calc-input" type="number" id="horasDia" name="horasDia"
-                    placeholder="8" value="8" min="1" max="24" step="0.5" inputmode="decimal">
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="diasSemana">Dias por semana</label>
-                <div class="input-row">
-                  <span class="input-prefix">d</span>
-                  <input class="calc-input" type="number" id="diasSemana" name="diasSemana"
-                    placeholder="5" value="5" min="1" max="7" inputmode="numeric">
-                </div>
-              </div>
-            </div>
-
-            <!-- Preview do valor-hora -->
-            <div class="valor-hora-preview" id="valorHoraPreview">
-              <div class="vhp-dot" id="vhpDot"></div>
-              <span class="vhp-text" id="vhpText">Preencha sua renda para calcular o valor da sua hora</span>
-            </div>
-          </div>
-
-          <!-- Card: O que quer comprar -->
-          <div class="calc-card">
-            <div class="card-section-title">
-              <span>O que você quer comprar</span>
-            </div>
-
-            <div class="field-group field-group--full">
-              <label class="field-label" for="valorItem">Valor do produto ou serviço</label>
-              <div class="input-row">
-                <span class="input-prefix">R$</span>
-                <input class="calc-input" type="number" id="valorItem" name="valorItem"
-                  placeholder="0,00" min="0" step="0.01" inputmode="decimal"
-                  aria-label="Valor do item">
-              </div>
-            </div>
-
-            <button class="btn-calcular" id="btnCalcular" type="button">
+            <div class="cmb-icon cmb-icon--teal">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M9 2v5l3 3-3 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
-                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M9 5.5v4l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 5v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Calcular em horas trabalhadas
-            </button>
-          </div>
+            </div>
+            <div class="cmb-info">
+              <span class="cmb-name">Quanto vale em horas?</span>
+              <span class="cmb-sub">Preço em tempo de trabalho</span>
+            </div>
+            <span class="cmb-badge cmb-badge--active">Ativo</span>
+          </button>
+
+          <!-- Juros compostos — EM BREVE -->
+          <button
+            class="calc-menu-btn calc-menu-btn--soon"
+            data-calc="juros"
+            disabled
+            aria-label="Calculadora de juros compostos — em breve"
+          >
+            <div class="cmb-tooltip">
+              Simule como os juros compostos fazem seu dinheiro crescer (ou sua dívida explodir) ao longo do tempo.
+            </div>
+            <div class="cmb-icon cmb-icon--blue">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M3 13 L6 9 L9 10.5 L13 5 L15 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="12,4.5 15,4.5 15,7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="cmb-info">
+              <span class="cmb-name">Juros compostos</span>
+              <span class="cmb-sub">Simulador de rendimento</span>
+            </div>
+            <span class="cmb-badge cmb-badge--soon">Em breve</span>
+          </button>
+
+          <!-- Orçamento 50/30/20 — EM BREVE -->
+          <button
+            class="calc-menu-btn calc-menu-btn--soon"
+            data-calc="orcamento"
+            disabled
+            aria-label="Calculadora de orçamento 50/30/20 — em breve"
+          >
+            <div class="cmb-tooltip">
+              Organize sua renda com a regra 50/30/20: necessidades, desejos e poupança de forma equilibrada.
+            </div>
+            <div class="cmb-icon cmb-icon--amber">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="2" y="3.5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M6 3.5v11M12 3.5v11M2 9h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cmb-info">
+              <span class="cmb-name">Orçamento 50/30/20</span>
+              <span class="cmb-sub">Dividir a renda por objetivo</span>
+            </div>
+            <span class="cmb-badge cmb-badge--soon">Em breve</span>
+          </button>
+
+          <!-- Meta de poupança — EM BREVE -->
+          <button
+            class="calc-menu-btn calc-menu-btn--soon"
+            data-calc="meta"
+            disabled
+            aria-label="Calculadora de meta de poupança — em breve"
+          >
+            <div class="cmb-tooltip">
+              Calcule quanto você precisa guardar por mês para realizar qualquer sonho ou objetivo financeiro.
+            </div>
+            <div class="cmb-icon cmb-icon--purple">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="9" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 2v1.5M9 14.5V16M16 9h-1.5M3.5 9H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cmb-info">
+              <span class="cmb-name">Meta de poupança</span>
+              <span class="cmb-sub">Quanto guardar por mês</span>
+            </div>
+            <span class="cmb-badge cmb-badge--soon">Em breve</span>
+          </button>
 
         </div>
 
-        <!-- Coluna de resultado -->
-        <div class="calc-col-result">
-          <div class="result-card" id="resultCard">
+        <!-- Banner: mais funcionalidades em breve -->
+        <div class="coming-soon-bar">
+          <div class="csb-icon">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+              <circle cx="7.5" cy="7.5" r="6" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M7.5 4.5v3.5l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="csb-text">
+            <strong>Mais calculadoras a caminho</strong> — estamos preparando novas ferramentas para te ajudar a entender o seu dinheiro.
+          </p>
+        </div>
+      </div>
 
-            <div class="result-empty" id="resultEmpty">
-              <div class="result-empty-icon">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-                  <path d="M20 12v8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
-                </svg>
+      <!-- ── CONTEÚDO DINÂMICO DAS CALCULADORAS ── -->
+
+      <!-- Calculadora: Horas trabalhadas -->
+      <div class="calc-screen" id="screen-horas">
+
+        <div class="calc-screen-hero">
+          <div class="page-hero-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14 8v6l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="calc-screen-title">Quanto vale em horas?</h2>
+            <p class="calc-screen-sub">Descubra o preço real de qualquer compra em tempo de trabalho.</p>
+          </div>
+        </div>
+
+        <div class="calc-layout">
+
+          <!-- Coluna principal -->
+          <div class="calc-col-main">
+
+            <!-- Card: Sua renda -->
+            <div class="calc-card">
+              <div class="card-section-title">
+                <span>Sua renda</span>
+              </div>
+
+              <div class="period-tabs" id="periodTabs" role="tablist">
+                <button class="period-tab active" data-period="mensal" role="tab">Mensal</button>
+                <button class="period-tab" data-period="quinzenal" role="tab">Quinzenal</button>
+                <button class="period-tab" data-period="semanal" role="tab">Semanal</button>
+              </div>
+
+              <div class="fields-grid">
+                <div class="field-group field-group--full">
+                  <label class="field-label" id="rendaLabel" for="renda">Renda mensal</label>
+                  <div class="input-row">
+                    <span class="input-prefix">R$</span>
+                    <input class="calc-input" type="number" id="renda" name="renda"
+                      placeholder="0,00" min="0" step="0.01" inputmode="decimal"
+                      aria-label="Renda">
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="horasDia">Horas por dia</label>
+                  <div class="input-row">
+                    <span class="input-prefix">h</span>
+                    <input class="calc-input" type="number" id="horasDia" name="horasDia"
+                      placeholder="8" value="8" min="1" max="24" step="0.5" inputmode="decimal">
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="diasSemana">Dias por semana</label>
+                  <div class="input-row">
+                    <span class="input-prefix">d</span>
+                    <input class="calc-input" type="number" id="diasSemana" name="diasSemana"
+                      placeholder="5" value="5" min="1" max="7" inputmode="numeric">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview do valor-hora -->
+              <div class="valor-hora-preview" id="valorHoraPreview">
+                <div class="vhp-dot" id="vhpDot"></div>
+                <span class="vhp-text" id="vhpText">Preencha sua renda para calcular o valor da sua hora</span>
               </div>
             </div>
 
-            <div class="result-content" id="resultContent" hidden>
-              <div class="card-section-title">Resultado</div>
-
-              <div class="result-main">
-                <div class="result-label">Esse item vai custar</div>
-                <div class="result-value" id="resHoras">—</div>
-                <div class="result-unit" id="resUnidade">de trabalho</div>
+            <!-- Card: O que quer comprar -->
+            <div class="calc-card">
+              <div class="card-section-title">
+                <span>O que você quer comprar</span>
               </div>
 
-              <div class="result-divider"></div>
-
-              <div class="result-details">
-                <div class="detail-pill detail-pill--highlight">
-                  <div class="d-val" id="resValorHora">R$ 0</div>
-                  <div class="d-lbl">Sua hora vale</div>
-                </div>
-                <div class="detail-pill">
-                  <div class="d-val" id="resValorItem">R$ 0</div>
-                  <div class="d-lbl">Valor do item</div>
-                </div>
-                <div class="detail-pill">
-                  <div class="d-val" id="resDias">—</div>
-                  <div class="d-lbl">Dias inteiros</div>
-                </div>
-                <div class="detail-pill">
-                  <div class="d-val" id="resSemanas">—</div>
-                  <div class="d-lbl">Semanas</div>
+              <div class="field-group field-group--full">
+                <label class="field-label" for="valorItem">Valor do produto ou serviço</label>
+                <div class="input-row">
+                  <span class="input-prefix">R$</span>
+                  <input class="calc-input" type="number" id="valorItem" name="valorItem"
+                    placeholder="0,00" min="0" step="0.01" inputmode="decimal"
+                    aria-label="Valor do item">
                 </div>
               </div>
 
-              <div class="context-bar" id="contextBar"></div>
-
-              <button class="btn-reset" id="resetBtn" type="button">
-                ↺ Fazer novo cálculo
+              <button class="btn-calcular" id="btnCalcular" type="button">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/>
+                  <path d="M9 5.5v4l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Calcular em horas trabalhadas
               </button>
             </div>
 
           </div>
 
-          <!-- Dica educativa -->
-          <div class="edu-tip">
-            <div class="edu-tip-icon">💡</div>
-            <div>
-              <strong>Dica do Dindin</strong>
-              <p>Antes de comprar algo, pergunte-se: "Vale X horas do meu trabalho?" Esse hábito transforma decisões impulsivas em escolhas conscientes.</p>
+          <!-- Coluna de resultado -->
+          <div class="calc-col-result">
+            <div class="result-card" id="resultCard">
 
-              <img class="dindin-img" src="../assets/images/Dindin.png" alt="Dindin">
+              <div class="result-empty" id="resultEmpty">
+                <div class="result-empty-icon">
+                  
+                </div>
+                
+              </div>
+
+              <div class="result-content" id="resultContent" hidden>
+                <div class="card-section-title">Resultado</div>
+
+                <div class="result-main">
+                  <div class="result-label">Esse item vai custar</div>
+                  <div class="result-value" id="resHoras">—</div>
+                  <div class="result-unit" id="resUnidade">de trabalho</div>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="result-details">
+                  <div class="detail-pill detail-pill--highlight">
+                    <div class="d-val" id="resValorHora">R$ 0</div>
+                    <div class="d-lbl">Sua hora vale</div>
+                  </div>
+                  <div class="detail-pill">
+                    <div class="d-val" id="resValorItem">R$ 0</div>
+                    <div class="d-lbl">Valor do item</div>
+                  </div>
+                  <div class="detail-pill">
+                    <div class="d-val" id="resDias">—</div>
+                    <div class="d-lbl">Dias inteiros</div>
+                  </div>
+                  <div class="detail-pill">
+                    <div class="d-val" id="resSemanas">—</div>
+                    <div class="d-lbl">Semanas</div>
+                  </div>
+                </div>
+
+                <div class="context-bar" id="contextBar"></div>
+
+                <button class="btn-reset" id="resetBtn" type="button">
+                  ↺ Fazer novo cálculo
+                </button>
+              </div>
+
             </div>
-          </div>
 
+            <!-- Dica educativa -->
+            <div class="edu-tip">
+              <div class="edu-tip-icon">💡</div>
+              <div>
+                <strong>Dica do Dindin</strong>
+                <p>Antes de comprar algo, pergunte-se: "Vale X horas do meu trabalho?" Esse hábito transforma decisões impulsivas em escolhas conscientes.</p>
+                <img class="dindin-img" src="../assets/images/Dindin.png" alt="Mascote Dindin" loading="lazy" height="auto">
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+      <!-- /screen-horas -->
 
     </main>
 
@@ -212,9 +342,48 @@
       <p>© 2026 EducaDin · Feito com 💚 para jovens que querem mais</p>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
     <script>
-      // ── LÓGICA DA CALCULADORA ──────────────────────────────────────
+      // ── MENU DE CALCULADORAS ──────────────────────────────────────
+      (function () {
+        const menuBtns = document.querySelectorAll('.calc-menu-btn:not([disabled])');
+
+        menuBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // Atualiza botões ativos
+            document.querySelectorAll('.calc-menu-btn').forEach(b => {
+              b.classList.remove('active');
+              const badge = b.querySelector('.cmb-badge');
+              if (badge && badge.classList.contains('cmb-badge--active')) {
+                badge.classList.remove('cmb-badge--active');
+                badge.classList.add('cmb-badge--soon');
+                badge.textContent = 'Em breve';
+              }
+            });
+
+            btn.classList.add('active');
+            const badge = btn.querySelector('.cmb-badge');
+            if (badge) {
+              badge.classList.remove('cmb-badge--soon');
+              badge.classList.add('cmb-badge--active');
+              badge.textContent = 'Ativo';
+            }
+
+            // Exibe a tela correspondente
+            const target = btn.dataset.calc;
+            document.querySelectorAll('.calc-screen').forEach(s => {
+              s.style.display = 'none';
+            });
+            const screen = document.getElementById('screen-' + target);
+            if (screen) {
+              screen.style.display = 'block';
+              screen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      })();
+
+      // ── LÓGICA DA CALCULADORA DE HORAS ────────────────────────────
       (function () {
         let periodo = 'mensal';
         const multiplicadores = { mensal: 4.33, quinzenal: 2.165, semanal: 1 };
